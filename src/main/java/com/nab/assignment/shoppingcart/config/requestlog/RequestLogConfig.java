@@ -1,4 +1,4 @@
-package com.nab.assignment.shoppingcart.requestlog;
+package com.nab.assignment.shoppingcart.config.requestlog;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

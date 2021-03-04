@@ -1,4 +1,4 @@
-package com.nab.assignment.shoppingcart.requestlog;
+package com.nab.assignment.shoppingcart.config.requestlog;
 
 import com.nab.assignment.shoppingcart.constant.ApplicationConstants;
 import com.nab.assignment.shoppingcart.service.RequestLogService;
