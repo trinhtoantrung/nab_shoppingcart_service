@@ -1,0 +1,27 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+  error:
+    include-message: always
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nab_shoppingcart
+    username: postgres
+    password: 2020
+
+logging:
+  level:
+    com.nab.assignment.product: debug
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
+
+application:
+  name: @project.name@
+  version: @project.version@
+  description: @project.description@
