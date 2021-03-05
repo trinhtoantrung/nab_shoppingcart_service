@@ -1,6 +1,7 @@
 package com.nab.assignment.shoppingcart.model;
 
-
+import com.nab.assignment.shoppingcart.constant.OrderStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,13 +12,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "item")
-public class Item extends AbstractAuditingEntity {
+@AllArgsConstructor
+@Entity(name = "order_trace_log")
+public class OrderTraceLog extends AbstractTraceAuditingEntity {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -33,11 +37,10 @@ public class Item extends AbstractAuditingEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "product_id")
-    private UUID productId;
+    @NotNull
+    @Column(name = "order_id")
+    private UUID orderId;
 
-    private Long quantity = 1L;
-
-    @Column(name = "unit_price")
-    private Long unitPrice;
+    @NotNull
+    private OrderStatus status;
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity(name = "nab_order")
-public class Order {
+public class Order extends AbstractAuditingEntity{
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(

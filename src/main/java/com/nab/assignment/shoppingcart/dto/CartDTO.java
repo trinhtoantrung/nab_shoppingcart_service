@@ -1,7 +1,6 @@
 package com.nab.assignment.shoppingcart.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nab.assignment.shoppingcart.model.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,5 +20,5 @@ public class CartDTO implements Serializable {
 
     @JsonProperty("is_order")
     private Boolean isOrder = false;
-    private Set<Item> items;
+    private Set<ItemDTO> items;
 }

@@ -1,4 +1,4 @@
-package com.nab.assignment.shoppingcart;
+package com.nab.assignment.shoppingcart.controller;
 
 import com.nab.assignment.shoppingcart.dto.AppInfoDTO;
 import org.springframework.beans.factory.annotation.Value;
