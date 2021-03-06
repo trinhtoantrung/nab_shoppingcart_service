@@ -18,7 +18,7 @@ public class CartDTO implements Serializable {
     @JsonProperty("user_id")
     private String userId;
 
-    @JsonProperty("is_order")
-    private Boolean isOrder = false;
+    @JsonProperty("order")
+    private UUID order;
     private Set<ItemDTO> items;
 }

@@ -3,6 +3,7 @@ package com.nab.assignment.shoppingcart.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity(name = "cart")
+@DynamicUpdate
 public class Cart extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -36,10 +38,6 @@ public class Cart extends AbstractAuditingEntity {
 
     private String userId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "cart_item",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @OneToMany(mappedBy="cart", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Item> items = new HashSet<>();
 }

@@ -4,6 +4,7 @@ import com.nab.assignment.shoppingcart.constant.OrderStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity(name = "nab_order")
+@DynamicUpdate
 public class Order extends AbstractAuditingEntity{
     @Id
     @GeneratedValue(generator = "UUID")
@@ -30,7 +32,7 @@ public class Order extends AbstractAuditingEntity{
     @Column(name = "id")
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 

@@ -6,6 +6,9 @@ server:
     include-message: always
 
 spring:
+  application:
+    name: shopping-cart-service
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,13 +18,24 @@ spring:
     url: jdbc:postgresql://localhost:5432/nab_shoppingcart
     username: postgres
     password: 2020
+    hikari:
+      connection-timeout: 10000
+      maximum-pool-size: 10
+      auto-commit: false
+      pool-name: Hikari
 
 logging:
   level:
-    com.nab.assignment.product: debug
+    com.nab.assignment.shoppingcart: debug
     org.springframework.web.filter.CommonsRequestLoggingFilter: debug
 
 application:
   name: @project.name@
   version: @project.version@
   description: @project.description@
+  services:
+    product-service:
+      url: http://localhost:8081/api/product
+      validate-quantity: /validate-quantity
+      unit-price: /price
+

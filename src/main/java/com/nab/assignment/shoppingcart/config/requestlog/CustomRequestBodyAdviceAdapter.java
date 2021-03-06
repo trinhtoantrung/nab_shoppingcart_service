@@ -2,6 +2,8 @@ package com.nab.assignment.shoppingcart.config.requestlog;
 
 import com.nab.assignment.shoppingcart.constant.ApplicationConstants;
 import com.nab.assignment.shoppingcart.service.RequestLogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -13,11 +15,12 @@ import java.lang.reflect.Type;
 import java.util.UUID;
 
 /*
-* Logging requests (POST, PUT, PATCH, DELETE …)
+* Logging request body
 * */
 
 @ControllerAdvice
 public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
+    private static final Logger log = LoggerFactory.getLogger(CustomRequestBodyAdviceAdapter.class);
 
     private final RequestLogService requestLogService;
     private final HttpServletRequest httpServletRequest;
@@ -34,9 +37,11 @@ public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
 
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        String requestId = UUID.randomUUID().toString();
-        httpServletRequest.setAttribute(ApplicationConstants.REQUEST_ID, requestId);
-        requestLogService.logRequest(httpServletRequest, body);
+        if (httpServletRequest.getAttribute(ApplicationConstants.REQUEST_ID) != null) {
+            // async write request body
+            log.debug("Async write request body: {}", httpServletRequest.getAttribute(ApplicationConstants.REQUEST_ID));
+            requestLogService.logRequestBody(UUID.fromString(httpServletRequest.getAttribute(ApplicationConstants.REQUEST_ID).toString()), body);
+        }
 
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }

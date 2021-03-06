@@ -36,6 +36,8 @@ public class CartUtils {
         dto.setId(cart.getId());
         dto.setUserId(cart.getUserId());
 
+        dto.setOrder(cart.getOrder() != null ? cart.getOrder().getId() : null);
+
         if (CollectionUtils.isNotEmpty(cart.getItems())) {
             Set<ItemDTO> itemDTOSet = cart.getItems().stream().map(item -> convertToDTO(item)).collect(Collectors.toSet());
             dto.setItems(itemDTOSet);

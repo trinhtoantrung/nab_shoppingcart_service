@@ -4,19 +4,18 @@ package com.nab.assignment.shoppingcart.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity(name = "item")
+@DynamicUpdate
 public class Item extends AbstractAuditingEntity {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -40,4 +39,14 @@ public class Item extends AbstractAuditingEntity {
 
     @Column(name = "unit_price")
     private Long unitPrice;
+
+    @ManyToOne
+    @JoinColumn(name="cart_id", nullable=false)
+    private Cart cart;
+
+    public Item(UUID productId, Long unitPrice, Cart cart) {
+        this.productId = productId;
+        this.unitPrice = unitPrice;
+        this.cart = cart;
+    }
 }

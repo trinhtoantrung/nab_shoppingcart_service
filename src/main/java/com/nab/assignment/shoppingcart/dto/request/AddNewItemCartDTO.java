@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AddItemCartDTO implements Serializable {
+public class AddNewItemCartDTO implements Serializable {
     @NotNull
     @JsonProperty("cart_id")
     private String cartId;
